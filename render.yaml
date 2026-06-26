@@ -1,0 +1,14 @@
+# Render Deployment Configuration
+# This file tells Render how to build and run your application
+
+renders:
+  - type: web
+    name: halopesa-loan-system
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000

